@@ -2,6 +2,8 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
+import javax.swing.text.rtf.RTFEditorKit;
+
 
 public class Tree <T>{
 
@@ -18,12 +20,13 @@ public class Tree <T>{
         matrix = new Object[height][2*(int) Math.pow(2,height-1)+1];
         builtTree();
         size = this.size();
+        tail = getMostLeftNode(head);
 
     }
 
     public Tree(ArrayList<T> list){
 
-        fillTheTree(list);
+        builtTree(list);
 
         size = list.size();
 
@@ -88,7 +91,7 @@ public class Tree <T>{
 
     }
 
-    public void fillTheTree(ArrayList<T> list){
+    public void builtTree(ArrayList<T> list){
 
         if(list.size() == 0) return;
 
@@ -146,6 +149,74 @@ public class Tree <T>{
 
     }
 
+    public void fillTheTree(ArrayList<T> list){
+
+        if(list.size() == 0) return;
+
+        ArrayDeque<Node> dq = new ArrayDeque<>();
+
+        int index = 0;
+
+        dq.addLast(head);
+
+        boolean isTreeFilled = false;
+        boolean isListFinished = false;
+
+        while(isListFinished == false && isTreeFilled == false){
+
+            Node root = dq.pollFirst();
+
+            root.data = list.get(index);
+
+            if(root.left != null) dq.addLast(root.left);
+
+            if(root.right != null) dq.addLast(root.right);
+
+            if(dq.isEmpty()) isTreeFilled = true;
+
+            if(index == list.size()-1) isListFinished = true;
+
+            index++;
+
+        }
+
+
+    }
+
+    public void refreshTree(Node root){
+
+        if(root == null) return;
+
+        root.data = null;
+
+        refreshTree(root.left);
+        refreshTree(root.right);
+
+    }
+
+    public void refreshTree(){
+
+        refreshTree(head);
+
+    }
+
+    public Node getMostLeftNode(Node root){
+
+        if(root.left == null) return root;
+
+        return getMostLeftNode(root.left);
+
+    }
+
+    public Node getMostRightNode(Node root){
+
+        if(root.right == null) return root;
+
+        return getMostLeftNode(root.right);
+
+    }
+
+    
     public void levelOrderPrint(){
 
         ArrayDeque<Node> dq = new ArrayDeque<>();
@@ -175,11 +246,13 @@ public class Tree <T>{
 
     }
 
+
+
     public static void main(String[] args) {
 
         ArrayList<Integer> list = new ArrayList<>();
 
-        int size = 10;
+        int size = 63;
 
         for(int i=0; i<size; i++){
             list.add(i);
@@ -189,8 +262,26 @@ public class Tree <T>{
 
         tree.levelOrderPrint();
 
-        System.out.println(tree.size);
-        System.out.println(tree.height);
+        Tree<Integer> tree1 = new Tree<>(4);
+
+        tree1.levelOrderPrint();
+        tree1.print_as_tree();
+
+        //System.out.println(tree.size);
+        //System.out.println(tree.height);
+
+        tree1.fillTheTree(list);
+
+        tree1.add(21);
+        tree1.add(12);
+        tree1.add(28);
+        tree1.add(1);
+        tree1.add(2);
+
+        tree1.levelOrderPrint();
+
+
+        
 
         
         
