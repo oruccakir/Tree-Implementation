@@ -2,7 +2,7 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-import javax.swing.text.rtf.RTFEditorKit;
+import javax.swing.text.TabExpander;
 
 
 public class Tree <T>{
@@ -20,8 +20,7 @@ public class Tree <T>{
         matrix = new Object[height][2*(int) Math.pow(2,height-1)+1];
         builtTree();
         size = this.size();
-        tail = getMostLeftNode(head);
-
+        connectLastLevel();
     }
 
     public Tree(ArrayList<T> list){
@@ -31,7 +30,6 @@ public class Tree <T>{
         size = list.size();
 
         height = height();
-        
 
     }
 
@@ -56,6 +54,17 @@ public class Tree <T>{
         if(root == null) return 0;
 
         return 1 + Math.max(height(root.left), height(root.right));
+
+    }
+
+    public void findLeafNodes(Node root, ArrayList<Node> list){
+
+        if(root == null) return;
+
+        findLeafNodes(root.left, list);
+        findLeafNodes(root.right, list);
+
+        if(root.left == null && root.right == null) list.add(root);
 
     }
 
@@ -129,6 +138,51 @@ public class Tree <T>{
             
         }
         
+    }
+
+    public void connectLastLevel(){
+
+        ArrayList<Node> leafs = new ArrayList<>();
+
+        this.findLeafNodes(head, leafs);
+
+        tail = leafs.get(0);
+
+        for(int i=0; i<leafs.size()-1; i++)
+            leafs.get(i).next = leafs.get(i+1);
+
+    }
+
+    public void add(T data){
+
+        Node newNode = new Node(data);
+
+        if(tail == null) {
+
+            tail = getMostLeftNode(head);
+
+             connectLastLevel();
+
+            this.height++;
+
+        }
+
+        if(tail.left != null && tail.right != null) tail = tail.next;
+
+        if(tail == null) {
+
+            tail = getMostLeftNode(head);
+
+            connectLastLevel();
+
+            this.height++;
+
+        }
+
+        if(tail.left == null) tail.left = newNode;
+
+        else if(tail.right == null) tail.right = newNode;
+
     }
 
     public void print_as_tree(){
@@ -272,13 +326,23 @@ public class Tree <T>{
 
         tree1.fillTheTree(list);
 
-        tree1.add(21);
-        tree1.add(12);
-        tree1.add(28);
-        tree1.add(1);
-        tree1.add(2);
+        for(int i=0; i<16; i++){
+            tree1.add(i);
+        }
+
+        for(int i=0; i<32; i++){
+            tree1.add(i);
+        }
+
+        for(int i=0; i<64; i++){
+            tree1.add(i);
+        }
+
+       
 
         tree1.levelOrderPrint();
+        
+
 
 
         
@@ -344,6 +408,7 @@ public class Tree <T>{
         public Node  left;
         public Node  right;
         public Node  parent;
+        public Node  next;
         public T data;
 
         public Node(T data){
@@ -359,6 +424,12 @@ public class Tree <T>{
             this.left = this.right = this.parent = null;
 
         }
+
+        public String toString(){
+            return "Data  :"+this.data;
+        }
+
+        
 
     }
 
