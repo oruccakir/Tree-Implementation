@@ -2,9 +2,6 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-import javax.swing.text.TabExpander;
-
-
 public class Tree <T>{
 
     private Node head;
@@ -121,12 +118,14 @@ public class Tree <T>{
             if(2*index+1 < n){
                 
                 root.left = new Node(list.get(2*index+1));
+                root.left.parent = root;
                 
             }
             
             if(2*index+2 < n){
                 
                 root.right = new Node(list.get(2*index+2));
+                root.right.parent = root;
                 
             }
             
@@ -161,9 +160,7 @@ public class Tree <T>{
 
             tail = getMostLeftNode(head);
 
-             connectLastLevel();
-
-            this.height++;
+            connectLastLevel();
 
         }
 
@@ -174,8 +171,6 @@ public class Tree <T>{
             tail = getMostLeftNode(head);
 
             connectLastLevel();
-
-            this.height++;
 
         }
 
@@ -338,16 +333,15 @@ public class Tree <T>{
             tree1.add(i);
         }
 
+        for(int i=0; i<128; i++){
+            tree1.add(i);
+        }
+
        
 
         tree1.levelOrderPrint();
-        
 
-
-
-        
-
-        
+        System.out.println("Height "+tree1.height());
         
     }
 
