@@ -227,9 +227,9 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     }
 
-
-
-
+    /*
+     * pollfirst and pollast fonksiyonlarında poll edilenin root olma ihtimalini unutma
+     */
 
 
 
@@ -280,11 +280,34 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     @Override
     public T ceiling(T data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'ceiling'");
+        
+        T ceil = null;
+
+        Node temp = root;
+
+        while(temp != null){
+
+            if(temp.data.equals(data)) return data;
+
+            else if(temp.data.compareTo(data) > 0){
+
+                ceil = temp.data;
+
+                temp = temp.left;
+
+            }
+
+            else{
+
+                temp = temp.right;
+
+            }
+
+        }
+
+        return ceil;
+
     }
-
-
 
 
 
@@ -297,8 +320,28 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     @Override
     public T floor(T data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'floor'");
+
+        T floor = null;
+
+        Node temp = root;
+
+        while(temp != null){
+
+            if(temp.data.equals(data)) return data;
+
+            else if(temp.data.compareTo(data) > 0) temp = temp.left;
+
+            else{
+
+                floor = temp.data;
+
+                temp = temp.right;
+            }
+
+        }
+
+        return floor;
+
     }
 
 
@@ -570,6 +613,7 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     public void preOrder(){
         preOrder(root);
+        System.out.println();
     }
 
     private void preOrder(Node root){
@@ -585,6 +629,7 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     public void inOrder(){
         inOrder(root);
+        System.out.println();
     }
 
     private void inOrder(Node root){
@@ -601,6 +646,7 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     public void postOrder(){
         postOrder(root);
+        System.out.println();
     }
 
     private void postOrder(Node root){
