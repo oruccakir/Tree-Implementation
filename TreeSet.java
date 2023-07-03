@@ -233,11 +233,6 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
 
 
-
-
-
-
-
     @Override
     public T pollLast() {
         
@@ -420,8 +415,7 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     @Override
     public T lower(T data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lower'");
+        return null;
     }
 
 
