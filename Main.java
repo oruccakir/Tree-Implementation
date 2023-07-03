@@ -47,6 +47,9 @@ public class Main{
    
 
         set.inOrder();
+        
+
+        System.out.println(set.floor(10));
 
         
 
