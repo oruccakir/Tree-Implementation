@@ -4,32 +4,9 @@ import java.util.NoSuchElementException;
 
 public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
-    private Node root;
+    public Node root;
 
     public int size;
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void add(T data) {
@@ -441,8 +418,34 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     @Override
     public T higher(T data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'higher'");
+        
+        T ceil = null;
+
+        Node temp = root;
+
+        while(temp != null){
+
+            if(temp.data.compareTo(data) > 0){
+
+                ceil = temp.data;
+
+                temp = temp.left;
+
+            }
+
+            else {
+
+                temp = temp.right;
+
+            }
+
+        }
+
+        if(ceil == null || ceil.equals(data)) return null;
+
+        return ceil;
+
+
     }
 
 
@@ -458,7 +461,30 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     @Override
     public T lower(T data) {
-        return null;
+        
+         T floor = null;
+
+        Node temp = root;
+
+        while(temp != null){
+
+            if (temp.data.compareTo(data) < 0){
+
+                floor = temp.data;
+
+                temp = temp.right;
+            }
+
+            else{
+                temp = temp.left;
+            }
+
+        }
+
+        if(floor == null || floor.equals(data)) return null;
+
+        return floor;
+
     }
 
 
@@ -716,7 +742,7 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
         public String toString(){
 
-            return "Data : "+data+" Left : "+left.data+" Right : "+right.data+"\n";
+            return "Data : "+data+"\n";
 
         }
 
