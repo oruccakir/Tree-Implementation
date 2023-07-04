@@ -163,13 +163,6 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
 
 
-
-
-
-
-
-
-
     @Override
     public T pollFirst() {
         
@@ -191,7 +184,6 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
         while(curr.left != null){
 
             prev = curr;
-
             curr = curr.left;
 
         }

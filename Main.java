@@ -12,6 +12,7 @@ public class Main{
         set.add(i);
 
 
+       set.pollFirst();
        
         set.inOrder();
 
