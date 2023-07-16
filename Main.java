@@ -8,13 +8,19 @@ public class Main{
         
         TreeSet<Integer> set = new TreeSet<>();
 
-        for(int i=10; i<22; i++)
-        set.add(i);
+        for(int i=0; i<10; i++) set.add(100+i);
+
+        for(int i=0; i<10; i++) set.add(90+i);
+
+        for(int i=0; i<10; i++) set.add(80+i);
 
 
-       set.pollFirst();
        
+
+
         set.inOrder();
+
+        set.diagonalTraversal();
 
         
 

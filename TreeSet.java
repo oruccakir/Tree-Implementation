@@ -2,6 +2,8 @@ import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
+import javax.swing.text.Position;
+
 public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     public Node root;
@@ -718,6 +720,59 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
         return ans;
 
     }
+
+
+    public void diagonalTraversal(){
+
+        ArrayDeque<Node> dq = new ArrayDeque<>();
+
+        Node t = root;
+
+        while (t != null){
+
+            dq.addLast(t);
+
+            t = t.right;
+
+        }
+
+
+        while(dq.isEmpty() == false){
+
+            int size = dq.size();
+
+            for(int i=0; i<size; i++){
+
+                Node temp = dq.pollFirst();
+
+                System.out.print(temp.data+" ");
+
+                if(temp.left != null) {
+
+                    dq.addLast(temp.left);
+
+                    Node r = temp.left.right;
+
+                    while (r != null){
+
+                        dq.addLast(r);
+
+                        r = r.right;
+
+                    }
+
+                }
+
+            }
+
+
+            if(dq.isEmpty() == false) System.out.print(-1+" ");
+
+        }
+
+
+    }
+
 
     private class Node{
 
