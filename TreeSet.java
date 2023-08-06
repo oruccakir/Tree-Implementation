@@ -2,7 +2,6 @@ import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-import javax.swing.text.Position;
 
 public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
