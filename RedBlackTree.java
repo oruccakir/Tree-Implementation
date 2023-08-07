@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class RedBlackTree <K extends Comparable<K>,V> {
 
     private static final String RED = "red";
@@ -136,16 +138,45 @@ public class RedBlackTree <K extends Comparable<K>,V> {
     }
 
 
+    private void inorderRecursive(Node root){
 
+        if(root == null) return;
 
+        inorderRecursive(root.left);
 
+        System.out.print(root.data+" ");
 
+        inorderRecursive(root.right);
 
+    }
 
+    private void inorderIterative(){
 
+        Stack<Node> stack = new Stack<>();
 
+        Node curr = root;
 
+        while(curr != null || stack.isEmpty() == false){
 
+            if(curr != null){
+                stack.push(curr);
+                curr = curr.left;
+            }
+            else{
+                curr = stack.pop();
+                System.out.print(curr.data+" ");
+                curr = curr.right;
+            }
+
+        }
+
+    }
+
+    public void printInorder(){
+
+        inorderIterative();
+
+    }
 
 
     private class Node{
@@ -231,6 +262,15 @@ public class RedBlackTree <K extends Comparable<K>,V> {
 
     public static void main(String[] args) {
         
+        RedBlackTree<Integer,String> rt = new RedBlackTree<>();
+
+        rt.insert(1, "bebe");
+        rt.insert(12, "kral");
+        rt.insert(4, "cicikuşş");
+        rt.insert(15,"heyyy");
+
+        rt.printInorder();
+
     }
     
 }
