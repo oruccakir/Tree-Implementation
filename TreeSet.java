@@ -1,6 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 
 public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
@@ -720,6 +721,56 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     }
 
+    public void printBetween(T smaller, T bigger){
+
+        Stack<Node> stack = new Stack<>();
+        Node curr = root;
+        boolean isFinished = false;
+        while((stack.isEmpty() == false || curr != null ) && !isFinished){
+
+            if(curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }    
+            else{
+                curr = stack.pop();
+                if(curr.data.compareTo(bigger) < 0 && curr.data.compareTo(smaller) > 0) System.out.print(curr.data+" ");
+                else if(curr.data.compareTo(bigger) >= 0) isFinished = true;
+                curr = curr.right;
+            }
+
+        }
+
+    }
+
+
+    public void recursivePrintBetween(Node root,T smaller, T bigger){
+
+        if(root == null) return;
+
+        if(root.data.compareTo(smaller) > 0) recursivePrintBetween(root.left, smaller, bigger);
+
+        if(root.data.compareTo(smaller) > 0 && root.data.compareTo(bigger) < 0) System.out.print(root.data+" ");
+
+        if(root.data.compareTo(bigger) < 0) recursivePrintBetween(root.right, smaller, bigger);
+
+    }
+
+    public void convertToLinkedList(Node root,LinkedList<T> list){
+
+        if(root.left != null)
+            convertToLinkedList(root.left, list);
+        
+        list.add(root.data);
+
+        if(root.right != null)
+            convertToLinkedList(root.right, list);
+
+    }
+
+    public T findKthLargest(Node root,int k){
+        return null;
+    }
 
     public void diagonalTraversal(){
 
@@ -772,7 +823,7 @@ public class TreeSet<T extends Comparable<T>> implements TreeSetInterface<T> {
 
     }
 
-
+    
     private class Node{
 
         public T data;
